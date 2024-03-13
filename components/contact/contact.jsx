@@ -36,7 +36,7 @@ const Contact = ()=>  {
             required
             color="primary"
             id="name"
-            placeholder="Enter your name"
+            placeholder="Please enter your name"
             value={formData.name}
             onChange={handleInputChange}
           />
