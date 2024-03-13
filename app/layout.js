@@ -5,7 +5,7 @@ import React from "react";
 import Loading from "./loading";
 
 export const metadata = {
-  title: "Ramadan Tracking project",
+  title: "Ramadan Habits Tracker",
   description: "track your islamic habits in Ramadan",
 };
 

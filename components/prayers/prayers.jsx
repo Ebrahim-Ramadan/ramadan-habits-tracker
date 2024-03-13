@@ -4,6 +4,7 @@ import { PrayersGrid } from './PrayersGrid'
 import secureLocalStorage from "react-secure-storage";
 import { useRouter } from 'next/navigation';
 import { Notify } from 'notiflix';
+import UploadPrayers from './UploadPrayers';
 
  const Prayers = () => {
   const router = useRouter()
@@ -21,7 +22,8 @@ React.useEffect(() => {
        {secureLocalStorage.getItem('loggedIn') &&
                 <PrayersGrid userEmail={secureLocalStorage.getItem("username")} />
 
-}
+       }
+       <UploadPrayers/>
     </div>
   )
 }
