@@ -6,6 +6,6 @@ stack:
 <br/>
 
 #### features implemented:
-- auth
-+ uploadthing
+- [auth](https://firebase.google.com)
++ [uploadthing](https://uploadthing.com)
 * prayers time monitoring/update
