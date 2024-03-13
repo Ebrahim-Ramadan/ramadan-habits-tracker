@@ -15,19 +15,58 @@
     --background-end-rgb: 0, 0, 0;
   }
 }
-
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  color: black;
+  background-color: black; 
+  /* background-image: linear-gradient(to bottom, transparent, rgb(var(--background-start-rgb))); */
 }
-
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
 }
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+/* @media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+} */
+
+.navlinks{
+  color: white;
+}
+.navlinks >*:hover{
+  transition: all 0.4s;
+  opacity: 75%;
+}
+.loader {
+  width: 25px;
+  height: 25px;
+  border: 5px solid #FFF;
+  border-bottom-color: #4F46E5;
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+  }
+
+  @keyframes rotation {
+  0% {
+      transform: rotate(0deg);
+  }
+  100% {
+      transform: rotate(360deg);
+  }
+  } 
