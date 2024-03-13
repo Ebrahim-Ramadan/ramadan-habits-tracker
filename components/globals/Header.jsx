@@ -88,7 +88,7 @@ export const Header = () => {
 
     return (
         <>
-            <nav className={`items-center bg-black sticky top-0 z-40 sticky top-0 z-40  w-full fixed md:text-sm md:border-none ${state ? "shadow-lg rounded-b-xl md:shadow-none" : ""}`}>
+            <nav className={` backdrop-blur-lg bg-transparent items-center bg-black sticky top-0 z-40 sticky top-0 z-40  w-full fixed md:text-sm md:border-none ${state ? "shadow-lg rounded-b-xl md:shadow-none" : ""}`}>
            
                 <div className="items-center gap-x-14 px-4 max-w-screen-xl mx-auto md:flex md:px-8">
                
