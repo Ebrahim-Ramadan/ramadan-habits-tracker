@@ -1,4 +1,4 @@
-[visit here](https://ramadanhabitstracker.vercel.app/)
+[visit here](https://ramadan-habits-tracker.vercel.app/)
 stack:
 - nextjs + tailwindcss
 + firebase
