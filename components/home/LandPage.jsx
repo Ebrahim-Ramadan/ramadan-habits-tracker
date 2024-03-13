@@ -1,6 +1,12 @@
+'use client'
 import React from 'react'
+import secureLocalStorage from "react-secure-storage";
 
 export const LandPage = () => {
+  const [loggedInState, setloggedInState] = React.useState(false);
+  React.useEffect(() => {
+    setloggedInState(secureLocalStorage.getItem("loggedIn"))
+  }, []);
   return (
     <div className=" w-full">
     <div className="container grid items-center gap-4 px-4 text-center md:px-6 lg:gap-10">
@@ -13,12 +19,12 @@ export const LandPage = () => {
         <div className="flex flex-col justify-center text-lg gap-y-2 font-bold text-center text-slate-950">
             <div className="flex gap-2 md:gap-x-4 justify-center md:text-base text-xs font-bold text-center text-slate-950">
 
-<a className='block py-2 px-4 text-white bg-indigo-600 duration-150 hover:bg-indigo-500 active:bg-indigo-700 rounded-lg shadow-lg hover:shadow-none' href='/prayers'>Start Tracking</a>
+<a className='block py-2 px-4 text-white bg-indigo-600 duration-150 hover:bg-indigo-500 active:bg-indigo-700 rounded-lg shadow-lg hover:shadow-none' href={`${loggedInState?'/prayers':'/login'}`}>Start Tracking</a>
 <a className=' p-2 text-gray-100 hover:text-gray-200 duration-150 hover:bg-slate-500 active:bg-gray-100 border rounded-lg' href='/dashboard'>Watch Progress</a>
 </div>
 
 <div className='flex justify-center flex-row'>
-<a href="/documentation" className='inline-flex gap-x-4 items-center rounded-full p-1 pr-2 md:pr-6 border text-xs font-medium duration-150 hover:bg-[#8574EC]'>
+<a href="https://github.com/Ebrahim-Ramadan/ramadanhabitstracker" target='_blank' className='inline-flex gap-x-4 items-center rounded-full p-1 pr-2 md:pr-6 border text-xs font-medium duration-150 hover:bg-[#8574EC]'>
                   <span className='inline-block rounded-full px-3 py-1 bg-indigo-600 text-white'>
                       News
                   </span>

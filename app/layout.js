@@ -17,7 +17,7 @@ export default function RootLayout({ children }) {
       <meta name="keywords" content="fitness, gym progress, workout, gym sets tracker, fitness routines, gymrat, gymbruh, gymbro" />
  
         <meta name="description" content="track your islamic habits in Ramadans" />
-        <meta data-n-head="ssr" data-hid="og:image:type" property="og:image:type" content="image/png"/>
+        <meta data-n-head="ssr" data-hid="og:image:type" property="og:image:type" content="image/jpeg"/>
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
         <link rel="icon" href="/favicon.png" />
