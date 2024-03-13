@@ -24,7 +24,7 @@ export const LandPage = () => {
 </div>
 
 <div className='flex justify-center flex-row'>
-<a href="https://github.com/Ebrahim-Ramadan/ramadanhabitstracker" target='_blank' className='inline-flex gap-x-4 items-center rounded-full p-1 pr-2 md:pr-6 border text-xs font-medium duration-150 hover:bg-[#8574EC]'>
+<a href="https://github.com/Ebrahim-Ramadan/ramadan-habits-tracker" target='_blank' className='inline-flex gap-x-4 items-center rounded-full p-1 pr-2 md:pr-6 border text-xs font-medium duration-150 hover:bg-[#8574EC]'>
                   <span className='inline-block rounded-full px-3 py-1 bg-indigo-600 text-white'>
                       News
                   </span>

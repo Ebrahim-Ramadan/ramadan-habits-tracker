@@ -209,7 +209,7 @@ export const Header = () => {
                                     )
                                 })
                             }
-                           <Link href="https://github.com/Ebrahim-Ramadan/ramadanhabitstracking" target='_blank' className='gh flex flex-row items-center gap-x-2'>
+                           <Link href="https://github.com/Ebrahim-Ramadan/ramadan-habits-tracker" target='_blank' className='gh flex flex-row items-center gap-x-2'>
                   <Image src={gh} width={25} height={25} alt='gh' loading='lazy'/>
                                         </Link>
                             <div className='font-bold flex-1 items-center justify-end gap-x-6 space-y-3 md:flex md:space-y-0'>
