@@ -1,14 +1,17 @@
 'use client'
+import Image from 'next/image';
 import React from 'react'
 import secureLocalStorage from "react-secure-storage";
-
+import bg from './bg.svg'
+import { Hero } from './Hero';
 export const LandPage = () => {
   const [loggedInState, setloggedInState] = React.useState(false);
   React.useEffect(() => {
     setloggedInState(secureLocalStorage.getItem("loggedIn"))
   }, []);
   return (
-    <div className=" w-full">
+    <div className="w-full min-h-screen bg-cover bg-center md:p-24 py-8 px-4" style={{ backgroundImage: `url(${bg.src})` }}>
+      {/* <Image src={bg} width='100%'/> */}
     <div className="container grid items-center gap-4 px-4 text-center md:px-6 lg:gap-10">
       <div className="space-y-2">
         <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-white">Ramadan Habits Tracker</h1>
@@ -37,7 +40,8 @@ export const LandPage = () => {
               </a>
 </div>
             </div>
-    </div>
+      </div>
+      <Hero/>
   </div>
   )
 }
