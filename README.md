@@ -8,4 +8,4 @@ stack:
 #### features implemented:
 - auth
 + uploadthing
-* prayers time monitoring
+* prayers time monitoring/update
