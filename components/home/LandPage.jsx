@@ -2,7 +2,7 @@
 import Image from 'next/image';
 import React from 'react'
 import secureLocalStorage from "react-secure-storage";
-import bg from './bg.svg'
+import bg from '@/assets/bg.svg'
 import { Hero } from './Hero';
 export const LandPage = () => {
   const [loggedInState, setloggedInState] = React.useState(false);

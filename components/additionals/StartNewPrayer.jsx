@@ -34,7 +34,6 @@ export const StartNewPrayer = ({ NewPrayer }) => {
 
     if (secureLocalStorage.getItem('loggedIn')) {
       const lastActivityDuration = !isObjectEmpty(LastadditionalPrayers) && LastadditionalPrayers['duration'];
-      console.log('lastActivityDuration', lastActivityDuration);
       
       const lastPrayerPoint = new Date(secureLocalStorage.getItem('lastPrayerPoint'));
 
