@@ -1,51 +1,39 @@
 'use client'
-import React, { useState } from 'react';
+import React, { useState , useEffect} from 'react';
 import secureLocalStorage from "react-secure-storage";
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import {AddAdditionals, getAdditionalPrayers} from '@/lib/auth/AddAdditionals'
-import { CountDown } from './CountDown';
+import { ProgressLine } from './CountDown';
 import { Reload } from '@/components/globals/Reload';
+
+const isObjectEmpty = (obj) => {
+  return Object.keys(obj).length === 0;
+} // to check if object is empty or not
+
 export const StartNewPrayer = ({ NewPrayer }) => {
   const [isLoading, setIsLoading] = React.useState(false);
 
   const [selectedOption, setSelectedOption] = useState('Home');
   const [duration, setDuration] = useState('15');
-  const [RealDurationTocount, setRealDurationTocount] = useState('');
   const [Disabled, setDisabled] = useState(false);
+  const [LastadditionalPrayers, setLastadditionalPrayers] = useState({});
 
-  React.useEffect(() => {
+
+  useEffect(() => {
     if (NewPrayer!='') {
       setDisabled(true)
     }
   }, [NewPrayer]);
+  useEffect(() => {
 
-  const handleOptionChange = (e) => {
-    setSelectedOption(e.target.value);
-  };
+    fetchData()
+  }, []);
 
-  const addActivity = async (uid) => { 
-    const res = await AddAdditionals(uid, {
-      NewPrayer,
-      selectedOption,
-      duration
-    })
-    if (res) {
-      Notify.success(`added your prayer`, {
-        position: 'center-top',
-      });
-    }
-  }
-
-  const getActivity = async (uid) => {
-    const Activity = await getAdditionalPrayers(uid)
-    return Activity.length > 0 && Activity[Activity.length - 1]
-  }
   const handleStartActivity = async () => {
     setIsLoading(true);
 
     if (secureLocalStorage.getItem('loggedIn')) {
-      const lastActivity = await getActivity(secureLocalStorage.getItem('username'));
-      const lastActivityDuration = lastActivity && lastActivity['duration'];
+      const lastActivityDuration = !isObjectEmpty(LastadditionalPrayers) && LastadditionalPrayers['duration'];
       console.log('lastActivityDuration', lastActivityDuration);
       
       const lastPrayerPoint = new Date(secureLocalStorage.getItem('lastPrayerPoint'));
@@ -54,12 +42,21 @@ export const StartNewPrayer = ({ NewPrayer }) => {
       const timeDifference = currentTimestamp - lastPrayerPoint;
 
       if (timeDifference >= lastActivityDuration * 60 * 1000) {
-        console.log('30 minutes has passed, timeDifference is', timeDifference);
         secureLocalStorage.setItem('lastPrayerPoint', currentTimestamp);
-        setRealDurationTocount(duration)
         
-        //js function
-          addActivity(secureLocalStorage.getItem('username'));
+        const res = await AddAdditionals(secureLocalStorage.getItem('username'), {
+          NewPrayer,
+          selectedOption,
+          duration, 
+          registeredTime : new Date()
+        })
+        if (res) {
+          Notify.success(`added your prayer`, {
+            position: 'center-top',
+          });
+        fetchData()
+
+        }
 
       } else {
         setDisabled(true)
@@ -79,6 +76,24 @@ export const StartNewPrayer = ({ NewPrayer }) => {
     
   };
 
+  const fetchData = async () => {
+    if (secureLocalStorage.getItem('loggedIn')) {
+      const additionalPrayersFetched = await getAdditionalPrayers(secureLocalStorage.getItem('username'))
+
+      setLastadditionalPrayers(
+        additionalPrayersFetched.length > 0 ? additionalPrayersFetched[additionalPrayersFetched.length - 1]:{}
+      )
+    }
+    else {
+      Notify.failure('log in first', {
+        position: 'center-top',
+      });
+    }
+  }
+
+
+
+
 
 
   return (
@@ -95,7 +110,7 @@ export const StartNewPrayer = ({ NewPrayer }) => {
                 value='Home'
                 className='hidden peer'
                 required
-                onChange={handleOptionChange}
+                onChange={(e)=>setSelectedOption(e.target.value)}
                 defaultChecked={selectedOption === 'Home'}
               />
               <label
@@ -119,7 +134,7 @@ export const StartNewPrayer = ({ NewPrayer }) => {
                 name='hosting'
                 value='Mosque'
                 className='hidden peer'
-                onChange={handleOptionChange}
+                onChange={(e)=>setSelectedOption(e.target.value)}
               />
               <label
                 htmlFor='Mosque'
@@ -161,9 +176,9 @@ export const StartNewPrayer = ({ NewPrayer }) => {
             <Reload/>:''}
       </button>
       </div>
-      {RealDurationTocount && (
-        <CountDown  duration={RealDurationTocount} />
-      )}
+
+      <ProgressLine  LastadditionalPrayers={LastadditionalPrayers&&LastadditionalPrayers} />
+
 </div>
   );
 };

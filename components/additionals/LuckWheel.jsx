@@ -1,8 +1,10 @@
 'use client'
 
-import { useState } from 'react';
+import { useState, Suspense, useEffect } from 'react';
 import {Reload} from '@/components/globals/Reload';
 import { StartNewPrayer } from './StartNewPrayer';
+import Loading from '@/app/loading';
+
 
 const activities = [
   "Reading and Reflecting on the Quran",
@@ -29,11 +31,13 @@ const ActivityPicker = () => {
     }, 1000);
   };
 
+
+  
   return (
     <div className="flex flex-col items-center">
       <h1 className="text-2xl font-bold mb-4 text-white">Activity Picker</h1>
       <div className="bg-gray-200 p-6 rounded-lg shadow-md flex flex-col justify-center w-full md:w-1/2 md:h-32">
-      <p className="md:text-2xl text-lg text-center">
+      <p className="md:text-2xl text-lg font-bold text-center leading-6">
           {isLoading ? (
             <Reload />
           ) : activity || <p className='text-lg font-bold'>Click the button to get a random activity</p>}
@@ -47,7 +51,9 @@ const ActivityPicker = () => {
           Get Random Activity
         </button>
       </div>
-      <StartNewPrayer NewPrayer={activity}/>
+      <Suspense fallback={<Loading />}>
+        <StartNewPrayer NewPrayer={activity} />
+      </Suspense>
     </div>
   );
 };
