@@ -5,10 +5,7 @@ import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import {AddAdditionals, getAdditionalPrayers} from '@/lib/auth/AddAdditionals'
 import { ProgressLine } from './CountDown';
 import { Reload } from '@/components/globals/Reload';
-
-const isObjectEmpty = (obj) => {
-  return Object.keys(obj).length === 0;
-} // to check if object is empty or not
+import { AdditionalsIllustration } from './AdditionalsIllustration'
 
 export const StartNewPrayer = ({ NewPrayer }) => {
   const [isLoading, setIsLoading] = React.useState(false);
@@ -16,7 +13,7 @@ export const StartNewPrayer = ({ NewPrayer }) => {
   const [selectedOption, setSelectedOption] = useState('Home');
   const [duration, setDuration] = useState('15');
   const [Disabled, setDisabled] = useState(false);
-  const [LastadditionalPrayers, setLastadditionalPrayers] = useState({});
+  const [additionalPrayers, setadditionalPrayers] = useState([]);
 
 
   useEffect(() => {
@@ -31,9 +28,9 @@ export const StartNewPrayer = ({ NewPrayer }) => {
 
   const handleStartActivity = async () => {
     setIsLoading(true);
-
+console.log('additionalPrayers', additionalPrayers);
     if (secureLocalStorage.getItem('loggedIn')) {
-      const lastActivityDuration = !isObjectEmpty(LastadditionalPrayers) && LastadditionalPrayers['duration'];
+      const lastActivityDuration = !additionalPrayers.length===0 && additionalPrayers['duration'];
       
       const lastPrayerPoint = new Date(secureLocalStorage.getItem('lastPrayerPoint'));
 
@@ -79,8 +76,8 @@ export const StartNewPrayer = ({ NewPrayer }) => {
     if (secureLocalStorage.getItem('loggedIn')) {
       const additionalPrayersFetched = await getAdditionalPrayers(secureLocalStorage.getItem('username'))
 
-      setLastadditionalPrayers(
-        additionalPrayersFetched.length > 0 ? additionalPrayersFetched[additionalPrayersFetched.length - 1]:{}
+      setadditionalPrayers(
+        additionalPrayersFetched
       )
     }
     else {
@@ -155,7 +152,7 @@ export const StartNewPrayer = ({ NewPrayer }) => {
           <label className='text-white'>For</label>
           <input
             type='number'
-            className='w-14 h-8 text-md rounded pr-2 pl-1'
+            className='w-14 h-8 text-md rounded pr-2 pl-1 bg-[#374151] text-white border border-2 border-indigo-600'
             placeholder='15'
             min='0'
             onChange={(e)=>setDuration(e.target.value)}
@@ -176,8 +173,12 @@ export const StartNewPrayer = ({ NewPrayer }) => {
       </button>
       </div>
 
-      <ProgressLine  LastadditionalPrayers={LastadditionalPrayers&&LastadditionalPrayers} />
-
+      <ProgressLine additionalPrayers={additionalPrayers && additionalPrayers} />
+<hr/>
+      {additionalPrayers?.map((additionalPrayer, idx) => (
+<AdditionalsIllustration key={idx} additionalPrayer={additionalPrayer&&additionalPrayer}/>
+        
+      ))}
 </div>
   );
 };

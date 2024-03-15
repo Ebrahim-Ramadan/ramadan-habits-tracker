@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
-export const ProgressLine = ({ LastadditionalPrayers }) => {
+export const ProgressLine = ({ additionalPrayers }) => {
+  const LastadditionalPrayers = additionalPrayers.length > 0 ? additionalPrayers[additionalPrayers.length - 1]:{}
   const [progress, setProgress] = useState(0);
   const [remainingTime, setRemainingTime] = useState('');
   const [isFinished, setIsFinished] = useState(false);
@@ -51,7 +52,7 @@ export const ProgressLine = ({ LastadditionalPrayers }) => {
   const progressBarColor = isFinished ? 'red' : '#4CAF50'; // Red if finished, green otherwise
 
   return (
-    <div className='flex flex-col mt-4 gap-2'>
+    <div className='flex flex-col mt-4 gap-2 mb-4'>
       <p className='text-white font-bold '>{LastadditionalPrayers['NewPrayer']}</p>
       <svg viewBox={`0 0 ${viewBoxWidth} ${viewBoxHeight}`} className='rounded-lg'>
         <rect
